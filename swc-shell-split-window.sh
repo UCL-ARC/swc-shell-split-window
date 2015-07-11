@@ -9,6 +9,10 @@
 #   LOG_FILE=/tmp/my-log ./swc-shell-split-window.sh
 LOG_FILE="${LOG_FILE:-/tmp/log-file}"
 
+# The number of lines of history to show.  Defaults to 5, but you can
+# override from the calling process.
+HISTORY_LINES="${HISTORY_LINES:-5}"
+
 # If $LOG_FILE exists, truncate it, otherwise create it.
 # Either way, this leaves us with an empty $LOG_FILE for tailing.
 > "${LOG_FILE}"
@@ -48,8 +52,12 @@ tmux send-keys -t 1 "history -c" enter
 # Send Bash the clear-screen command (see clear-screen in bash(1))
 tmux send-keys -t 1 "C-l"
 
-# Resize the log window to show the last five commands
-# Need to use the number of lines desired + 1
-tmux resize-pane -t 0 -y 6
+# Need add an additional line because Bash writes a trailing newline
+# to the log file after each command, tail reads through that trailing
+# newline and flushes everything it read to its pane.
+LOG_PANE_HEIGHT=$((${HISTORY_LINES} + 1))
+
+# Resize the log window to show the desired number of lines
+tmux resize-pane -t 0 -y "${LOG_PANE_HEIGHT}"
 
 tmux attach-session
