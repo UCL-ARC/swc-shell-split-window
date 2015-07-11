@@ -3,7 +3,11 @@
 # Create terminal for Software Carpentry lesson
 # with the log of the commands at the top.
 
-LOG_FILE=/tmp/log-file
+# Where we'll store the executed history.  Defaults to /tmp/log-file,
+# but you can override from the calling process.  For example:
+#
+#   LOG_FILE=/tmp/my-log ./swc-shell-split-window.sh
+LOG_FILE="${LOG_FILE:-/tmp/log-file}"
 
 # Create the session to be used
 # * don't attach yet (-d)
