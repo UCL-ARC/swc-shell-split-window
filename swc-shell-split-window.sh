@@ -32,6 +32,7 @@ WINDOW=$(tmux list-windows -F '#{window_id}' -t "${SESSION}")
 
 # Get the unique (and permanent) ID for the log pane
 LOG_PANE=$(tmux list-panes -F '#{pane_id}' -t "${WINDOW}")
+LOG_PID=$(tmux list-panes -F '#{pane_pid}' -t "${WINDOW}")
 
 # Split the log-pane (-t "${LOG_PANE}") vertically (-v)
 # * make the new pane the current pane (no -d)
@@ -40,8 +41,9 @@ LOG_PANE=$(tmux list-panes -F '#{pane_id}' -t "${WINDOW}")
 #   (PROMPT_COMMAND='history -a')
 # * launch Bash since POSIX doesn't specify shell history or HISTFILE
 #   (bash)
+# * when the Bash process exits, kill the log process
 tmux split-window -v -t "${LOG_PANE}" \
-	"HISTFILE='${LOG_FILE}' PROMPT_COMMAND='history -a' bash"
+	"HISTFILE='${LOG_FILE}' PROMPT_COMMAND='history -a' bash; kill '${LOG_PID}'"
 
 # Get the unique (and permanent) ID for the shell pane
 SHELL_PANE=$(tmux list-panes -F '#{pane_id}' -t "${WINDOW}" |
