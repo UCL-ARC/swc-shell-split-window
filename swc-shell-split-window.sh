@@ -8,13 +8,12 @@ LOG_FILE=/tmp/log-file
 # Create the session to be used
 # * don't attach yet (-d)
 # * name it 'swc' (-s swc)
-tmux new-session -d -s swc
+# * launch Bash since this hack only works with it
+tmux new-session -d -s swc bash
 
 # Split the window vertically (-v)
 tmux split-window -v
 
-# Launch Bash since this hack only works with it
-tmux send-keys -t 1 "bash" enter
 tmux send-keys -t 1 "cd" enter
 # Unset alias
 tmux send-keys -t 1 "unalias grep" enter
