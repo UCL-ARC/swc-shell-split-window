@@ -29,10 +29,11 @@ tmux new-session -d -s swc "tail -f '${LOG_FILE}'"
 tmux split-window -v "HISTFILE='${LOG_FILE}' PROMPT_COMMAND='history -a' bash"
 
 tmux send-keys -t 1 "cd" enter
-# Unset alias
-tmux send-keys -t 1 "unalias grep" enter
-tmux send-keys -t 1 "unalias ls" enter
-tmux send-keys -t 1 "unalias sort" enter
+
+# Unset all aliases to keep your environment from diverging from the
+# learner's environment.
+tmux send-keys -t 1 "unalias -a" enter
+
 # Set nice prompt displaying
 # with cyan
 # the command number and
