@@ -39,10 +39,15 @@ tmux send-keys -t 1 "unalias -a" enter
 # the command number and
 # the '$'.
 tmux send-keys -t 1 "export PS1=\"\[\033[1;36m\]\! $\[\033[0m\] \"" enter
-for i in $(seq 5)
-do
-    tmux send-keys -t 1 "clear" enter
-done
+
+# Clear the history so it starts over at number 1.
+# The script shouldn't run any more non-shell commands in the shell
+# pane after this.
+tmux send-keys -t 1 "history -c" enter
+
+# Send Bash the clear-screen command (see clear-screen in bash(1))
+tmux send-keys -t 1 "C-l"
+
 # Resize the log window to show the last five commands
 # Need to use the number of lines desired + 1
 tmux resize-pane -t 0 -y 6
