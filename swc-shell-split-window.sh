@@ -37,29 +37,31 @@ LOG_PID=$(tmux list-panes -F '#{pane_pid}' -t "${WINDOW}")
 # Split the log-pane (-t "${LOG_PANE}") vertically (-v)
 # * make the new pane the current pane (no -d)
 # * load history from the empty $LOG_FILE (HISTFILE='${LOG_FILE}')
+# * lines which begin with a space character are not saved in the
+#   history list (HISTCONTROL=ignorespace)
 # * append new history to $HISTFILE after each command
 #   (PROMPT_COMMAND='history -a')
 # * launch Bash since POSIX doesn't specify shell history or HISTFILE
 #   (bash)
 # * when the Bash process exits, kill the log process
 tmux split-window -v -t "${LOG_PANE}" \
-	"HISTFILE='${LOG_FILE}' PROMPT_COMMAND='history -a' bash; kill '${LOG_PID}'"
+	"HISTFILE='${LOG_FILE}' HISTCONTROL=ignorespace PROMPT_COMMAND='history -a' bash; kill '${LOG_PID}'"
 
 # Get the unique (and permanent) ID for the shell pane
 SHELL_PANE=$(tmux list-panes -F '#{pane_id}' -t "${WINDOW}" |
 	grep -v "^${LOG_PANE}\$")
 
-tmux send-keys -t "${SHELL_PANE}" "cd" enter
+tmux send-keys -t "${SHELL_PANE}" " cd" enter
 
 # Unset all aliases to keep your environment from diverging from the
 # learner's environment.
-tmux send-keys -t "${SHELL_PANE}" "unalias -a" enter
+tmux send-keys -t "${SHELL_PANE}" " unalias -a" enter
 
 # Set nice prompt displaying
 # with cyan
 # the command number and
 # the '$'.
-tmux send-keys -t "${SHELL_PANE}" "export PS1=\"\[\033[1;36m\]\! $\[\033[0m\] \"" enter
+tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\[\033[1;36m\]\! $\[\033[0m\] \"" enter
 
 # Clear the history so it starts over at number 1.
 # The script shouldn't run any more non-shell commands in the shell
