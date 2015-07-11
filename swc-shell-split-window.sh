@@ -21,8 +21,12 @@ tmux new-session -d -s swc "tail -f '${LOG_FILE}'"
 
 # Split the window vertically (-v)
 # * make the new pane the current pane (no -d)
-# * launch Bash since this hack only works with it
-tmux split-window -v bash
+# * load history from the empty $LOG_FILE (HISTFILE='${LOG_FILE}')
+# * append new history to $HISTFILE after each command
+#   (PROMPT_COMMAND='history -a')
+# * launch Bash since POSIX doesn't specify shell history or HISTFILE
+#   (bash)
+tmux split-window -v "HISTFILE='${LOG_FILE}' PROMPT_COMMAND='history -a' bash"
 
 tmux send-keys -t 1 "cd" enter
 # Unset alias
@@ -34,8 +38,6 @@ tmux send-keys -t 1 "unalias sort" enter
 # the command number and
 # the '$'.
 tmux send-keys -t 1 "export PS1=\"\[\033[1;36m\]\! $\[\033[0m\] \"" enter
-# Hack to write the log after every command
-tmux send-keys -t 1 "export PROMPT_COMMAND=\"history 1 >> ${LOG_FILE}\"" enter
 for i in $(seq 5)
 do
     tmux send-keys -t 1 "clear" enter
