@@ -10,8 +10,9 @@ LOG_FILE=/tmp/log-file
 # * name it 'swc' (-s swc)
 tmux new-session -d -s swc
 
-# Split the window
+# Split the window vertically (-v)
 tmux split-window -v
+
 # Launch Bash since this hack only works with it
 tmux send-keys -t 1 "bash" enter
 tmux send-keys -t 1 "cd" enter
