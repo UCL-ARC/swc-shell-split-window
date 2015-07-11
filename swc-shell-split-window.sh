@@ -6,7 +6,10 @@
 LOG_FILE=/tmp/log-file
 
 # Create the session to be used
+# * don't attach yet (-d)
+# * name it 'swc' (-s swc)
 tmux new-session -d -s swc
+
 # Split the window
 tmux split-window -v
 # Launch Bash since this hack only works with it
