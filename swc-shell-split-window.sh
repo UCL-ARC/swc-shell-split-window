@@ -9,9 +9,9 @@
 #   LOG_FILE=/tmp/my-log ./swc-shell-split-window.sh
 LOG_FILE="${LOG_FILE:-/tmp/log-file}"
 
-# Remove old file and create a empty one
-rm -f ${LOG_FILE}
-touch ${LOG_FILE}
+# If $LOG_FILE exists, truncate it, otherwise create it.
+# Either way, this leaves us with an empty $LOG_FILE for tailing.
+> "${LOG_FILE}"
 
 # Create the session to be used
 # * don't attach yet (-d)
