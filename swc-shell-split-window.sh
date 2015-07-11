@@ -9,14 +9,20 @@
 #   LOG_FILE=/tmp/my-log ./swc-shell-split-window.sh
 LOG_FILE="${LOG_FILE:-/tmp/log-file}"
 
+# Remove old file and create a empty one
+rm -f ${LOG_FILE}
+touch ${LOG_FILE}
+
 # Create the session to be used
 # * don't attach yet (-d)
 # * name it 'swc' (-s swc)
-# * launch Bash since this hack only works with it
-tmux new-session -d -s swc bash
+# * start reading the log
+tmux new-session -d -s swc "tail -f '${LOG_FILE}'"
 
 # Split the window vertically (-v)
-tmux split-window -v
+# * make the new pane the current pane (no -d)
+# * launch Bash since this hack only works with it
+tmux split-window -v bash
 
 tmux send-keys -t 1 "cd" enter
 # Unset alias
@@ -37,10 +43,5 @@ done
 # Resize the log window to show the last five commands
 # Need to use the number of lines desired + 1
 tmux resize-pane -t 0 -y 6
-# Remove old file and create a empty one
-rm -f ${LOG_FILE}
-touch ${LOG_FILE}
-# Starting read the log
-tmux send-keys -t 0 "tail -n 3 -f ${LOG_FILE}" enter
 
 tmux attach-session
