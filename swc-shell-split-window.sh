@@ -71,6 +71,15 @@ tmux send-keys -t "${SHELL_PANE}" "history -c" enter
 # Send Bash the clear-screen command (see clear-screen in bash(1))
 tmux send-keys -t "${SHELL_PANE}" "C-l"
 
+# Wait for Bash to act on the clear-screen.  We need to push the
+# earlier commands into tmux's scrollback before we can ask tmux to
+# clear them out.
+sleep 0.1
+
+# Clear tmux's scrollback buffer so it matches Bash's just-cleared
+# history.
+tmux clear-history -t "${SHELL_PANE}"
+
 # Need add an additional line because Bash writes a trailing newline
 # to the log file after each command, tail reads through that trailing
 # newline and flushes everything it read to its pane.
