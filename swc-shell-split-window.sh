@@ -79,4 +79,13 @@ LOG_PANE_HEIGHT=$((${HISTORY_LINES} + 1))
 # Resize the log window to show the desired number of lines
 tmux resize-pane -t "${LOG_PANE}" -y "${LOG_PANE_HEIGHT}"
 
+# Turn off tmux's status bar, because learners won't have one in their
+# terminal.
+# * don't print output to the terminal (-q)
+# * set this option at the window level (-w).  I'd like new windows in
+#   this session to get status bars, but it doesn't seem like there
+#   are per-window settings for 'status'.  In any case, the -w doesn't
+#   seem to cause any harm.
+tmux set-option -t "${WINDOW}" -q -w status off
+
 tmux attach-session -t "${SESSION}"
