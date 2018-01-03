@@ -15,3 +15,7 @@ Under MIT.
 ~~~
 $ swc-shell-split-window.sh
 ~~~
+
+## Screenshot
+
+![Screenshot of swc-shell-split-window](screenshot.png "Screenshot - only commands appear in top part of the shell, while instructor types in the bottom part and output is interleaved with commands")
