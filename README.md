@@ -13,7 +13,7 @@ Under MIT.
 ## Use
 
 ~~~
-$ swc-shell-split-window.sh
+$ ./swc-shell-split-window.sh
 ~~~
 
 ## Screenshot
