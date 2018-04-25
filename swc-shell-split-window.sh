@@ -28,7 +28,8 @@ SESSION="${SESSION:-swc}"
 # * don't attach yet (-d)
 # * name it $SESSION (-s "${SESSION}")
 # * start reading the log
-tmux new-session -d -s "${SESSION}" "tail -f '${LOG_FILE}'"
+# * ignore lines starting with '#' since they are the history file's internal timestamps
+tmux new-session -d -s "${SESSION}" "tail -f '${LOG_FILE}' | grep -v '^#'"
 
 # Get the unique (and permanent) ID for the new window
 WINDOW=$(tmux list-windows -F '#{window_id}' -t "${SESSION}")
@@ -65,6 +66,9 @@ tmux send-keys -t "${SHELL_PANE}" " unalias -a" enter
 # the command number and
 # the '$'.
 tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\[\033[1;36m\]\! $\[\033[0m\] \"" enter
+
+#A prompt showing `user@host:~/directory$ ` can be achieved with:
+#tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\\[\\e]0;\\u@\\h: \\w\\a\\]${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]user@host\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ \"" enter
 
 # Clear the history so it starts over at number 1.
 # The script shouldn't run any more non-shell commands in the shell
