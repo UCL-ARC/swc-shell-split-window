@@ -21,7 +21,9 @@ $ ./swc-shell-split-window.sh
 To enable mouse scrolling of the output edit `$HOME/.tmux.conf` to include the
 line:
 
-    setw -g mouse on
+~~~
+setw -g mouse on
+~~~
 
 ## Screenshot
 
