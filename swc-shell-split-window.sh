@@ -3,6 +3,9 @@
 # Create terminal for Software Carpentry lesson
 # with the log of the commands at the top.
 
+# To enable mouse scrolling of the output, add the line `setw -g mouse on` to
+# the `$HOME/.tmux.conf` file:
+
 # Where we'll store the executed history.  Defaults to /tmp/log-file,
 # but you can override from the calling process.  For example:
 #
