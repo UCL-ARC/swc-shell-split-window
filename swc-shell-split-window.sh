@@ -65,10 +65,10 @@ tmux send-keys -t "${SHELL_PANE}" " unalias -a" enter
 # with cyan
 # the command number and
 # the '$'.
-tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\[\033[1;36m\]\! $\[\033[0m\] \"" enter
+#tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\[\033[1;36m\]\! $\[\033[0m\] \"" enter
 
 #A prompt showing `user@host:~/directory$ ` can be achieved with:
-#tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\\[\\e]0;\\u@\\h: \\w\\a\\]${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]user@host\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ \"" enter
+tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\\[\\e]0;\\u@\\h: \\w\\a\\]${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]user@host\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ \"" enter
 
 # Clear the history so it starts over at number 1.
 # The script shouldn't run any more non-shell commands in the shell
