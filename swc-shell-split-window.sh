@@ -7,7 +7,7 @@
 # but you can override from the calling process.  For example:
 #
 #   LOG_FILE=/tmp/my-log ./swc-shell-split-window.sh
-LOG_FILE="${LOG_FILE:-/tmp/log-file}"
+LOG_FILE="${LOG_FILE:-/tmp/swc-split-log-file}"
 
 # The number of lines of history to show.  Defaults to 5, but you can
 # override from the calling process.
