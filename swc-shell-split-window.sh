@@ -68,11 +68,6 @@ tmux send-keys -t "${SHELL_PANE}" " unalias -a" enter
 tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\\[\\e]0;\\u@\\h: \\w\\a\\]${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]user@host\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ \"" enter
 
 #Set terminal colours
-#Print all colours using
-#for i in {0..255}; do
-#    printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"
-#done
-#I find that BGCOLOR=12 and BGCOLOR=90 work well
 if [ ! -z "$BGCOLOR" ]; then
   tmux select-pane -t "${SHELL_PANE}" -P bg="colour$BGCOLOR"
   tmux select-pane -t "${LOG_PANE}"   -P bg="colour$BGCOLOR"
