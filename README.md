@@ -47,8 +47,8 @@ about Git Conflicts.
 To do so, you would want to start to sessions in separate terminal windows with,
 e.g.:
 
-      LOG_FILE=/tmp/session1 BGCOLOR=12 ./swc-shell-split-window.sh
-      LOG_FILE=/tmp/session2 BGCOLOR=90 ./swc-shell-split-window.sh
+    LOG_FILE=/tmp/session1 BGCOLOR=12 ./swc-shell-split-window.sh
+    LOG_FILE=/tmp/session2 BGCOLOR=90 ./swc-shell-split-window.sh
 
 You can print all the available colours using:
 
