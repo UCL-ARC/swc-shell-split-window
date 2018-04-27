@@ -7,7 +7,7 @@
 # but you can override from the calling process.  For example:
 #
 #   LOG_FILE=/tmp/my-log ./swc-shell-split-window.sh
-LOG_FILE="${LOG_FILE:-/tmp/log-file}"
+LOG_FILE="${LOG_FILE:-/tmp/swc-split-log-file}"
 
 # The number of lines of history to show.  Defaults to 5, but you can
 # override from the calling process.
@@ -66,6 +66,14 @@ tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\[\033[1;36m\]\! $\[\033[0m\] \
 
 #A prompt showing `user@host:~/directory$ ` can be achieved with:
 #tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\\[\\e]0;\\u@\\h: \\w\\a\\]${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]user@host\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ \"" enter
+
+#Set terminal colours
+if [ ! -z "$BGCOLOR" ]; then
+  tmux select-pane -t "${SHELL_PANE}" -P bg="colour$BGCOLOR"
+  tmux select-pane -t "${LOG_PANE}"   -P bg="colour$BGCOLOR"
+fi
+
+sleep 0.1
 
 # Clear the history so it starts over at number 1.
 # The script shouldn't run any more non-shell commands in the shell
