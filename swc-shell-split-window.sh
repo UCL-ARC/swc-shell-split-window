@@ -24,9 +24,16 @@ SESSION="${SESSION:-swc}"
 # Create the session to be used
 # * don't attach yet (-d)
 # * name it $SESSION (-s "${SESSION}")
-# * start reading the log
-# * ignore lines starting with '#' since they are the history file's internal timestamps
-tmux new-session -d -s "${SESSION}" "tail -f '${LOG_FILE}' | grep -v '^#'"
+tmux new-session -d -s "${SESSION}" "\
+    # * start reading the log
+    tail -f '${LOG_FILE}' | \
+    # * extract the line numbers
+    stdbuf -o 0 nl -s'%' -n'ln' -w1 | \
+    # * ignore lines starting with '#' since
+    #   they are the history file's internal timestamps
+    stdbuf -o 0  grep -v '%#' | \
+    # * colour the line numbers
+    awk -F'%' '{print \"\033[1;36m\"\$1\"\033[0m\",\$2}'"
 
 # Get the unique (and permanent) ID for the new window
 WINDOW=$(tmux list-windows -F '#{window_id}' -t "${SESSION}")
