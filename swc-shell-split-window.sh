@@ -36,7 +36,7 @@ tmux new-session -d -s "${SESSION}" "\
     #   they are the history file's internal timestamps
     stdbuf -o 0  grep -v '%#' | \
     # * colour the line numbers
-    awk -F'%' '{print \"\033$CYAN\"\$1\"\033[0m\",\$2}'"
+    awk -F'%' '{print \"\033${CYAN}\"\$1\"\033[0m\",\$2}'"
 
 # Get the unique (and permanent) ID for the new window
 WINDOW=$(tmux list-windows -F '#{window_id}' -t "${SESSION}")
@@ -72,7 +72,7 @@ tmux send-keys -t "${SHELL_PANE}" " unalias -a" enter
 # with colour
 # the command number and
 # the '$'.
-tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\[\033$CYAN\]\! $\[\033[0m\] \"" enter
+tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\[\033${CYAN}\]\! $\[\033[0m\] \"" enter
 
 #A prompt showing `user@host:~/directory$ ` can be achieved with:
 #tmux send-keys -t "${SHELL_PANE}" " export PS1=\"\\[\\e]0;\\u@\\h: \\w\\a\\]${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]user@host\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ \"" enter
