@@ -3,19 +3,19 @@
 # Create terminal for Software Carpentry lesson
 # with the log of the commands at the top.
 
+# Session name.  Defaults to 'swc', but you can override from the
+# calling process.
+SESSION="${SESSION:-swc}"
+
 # Where we'll store the executed history.  Defaults to /tmp/log-file,
 # but you can override from the calling process.  For example:
 #
 #   LOG_FILE=/tmp/my-log ./swc-shell-split-window.sh
-LOG_FILE="${LOG_FILE:-/tmp/swc-split-log-file}"
+LOG_FILE="${LOG_FILE:-/tmp/$SESSION-split-log-file}"
 
 # The number of lines of history to show.  Defaults to 5, but you can
 # override from the calling process.
 HISTORY_LINES="${HISTORY_LINES:-5}"
-
-# Session name.  Defaults to 'swc', but you can override from the
-# calling process.
-SESSION="${SESSION:-swc}"
 
 # If $LOG_FILE exists, truncate it, otherwise create it.
 # Either way, this leaves us with an empty $LOG_FILE for tailing.

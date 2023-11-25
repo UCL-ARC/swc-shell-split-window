@@ -18,9 +18,9 @@ $ ./swc-shell-split-window.sh
 
 Various environment variables affect the behaviour of the script, these are:
 
+ * `SESSION`:       The name of the session (default: swc)
  * `LOG_FILE`:      The location where the log file will be stored (default: /tmp/swc-split-log-file)
  * `HISTORY_LINES`: How many lines of history to be shown (default: 5)
- * `SESSION`:       The name of the session (default: swc)
  * `BGCOLOR`:       Background colour of the session
 
 These can be used with, e.g.:
@@ -47,8 +47,8 @@ about Git Conflicts.
 To do so, you would want to start to sessions in separate terminal windows with,
 e.g.:
 
-    LOG_FILE=/tmp/session1 BGCOLOR=12 ./swc-shell-split-window.sh
-    LOG_FILE=/tmp/session2 BGCOLOR=90 ./swc-shell-split-window.sh
+    SESSION=swc1 BGCOLOR=12 ./swc-shell-split-window.sh
+    SESSION=swc2 BGCOLOR=90 ./swc-shell-split-window.sh
 
 You can print all the available colours using:
 
